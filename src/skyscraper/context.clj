@@ -35,4 +35,6 @@
     (cond-> context
       true dissoc-internal
       true dissoc-leaf-keys
-      processor (assoc :skyscraper/current-processor-name (:name processor)))))
+      true (merge (select-keys context [:processor :url])) ; reattach
+      processor (assoc :skyscraper/current-processor-name (:name processor))
+      true pr-str)))
