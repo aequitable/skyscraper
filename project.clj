@@ -14,6 +14,8 @@
                  [enlive "1.1.6" :exclusions [jsoup]]
                  [http-kit "2.3.0"]
                  [reaver "0.1.2"]
+                 [hiccup "1.0.5"]
+                 [ring "1.8.0"]
                  [com.taoensso/timbre "4.10.0"]
                  [org.xerial/sqlite-jdbc "3.21.0.1"]]
   :profiles {:test {:dependencies [[hiccup "1.0.5"]

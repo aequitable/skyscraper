@@ -4,6 +4,7 @@
     [clojure.core.strint :refer [<<]]
     [clojure.java.jdbc :as jdbc]
     [clojure.string :as string]
+    [clojure.set :as set]
     [skyscraper.context :as context]
     [skyscraper.data :refer [separate]]
     [taoensso.timbre :refer [debugf warnf]]))
@@ -32,6 +33,22 @@
             [(db-column-name col) :text])))))
 
 (def rowid (keyword "last_insert_rowid()"))
+
+(defn update-multi! [db name id columns ctxs]
+  (let [non-id (vec (set/difference (set columns)
+                                    (set id)))
+        set-part (string/join ", " (for [k non-id]
+                                     (str (db-column-name k) " = ?")))
+        where-part (string/join " and " (for [k id]
+                                          (str (db-column-name k) " = ?")))
+        update-query (str "update " (db-column-name name)
+                          " set " set-part
+                          " where " where-part)
+        keyseq (into non-id id)
+        ctx->entry #(mapv % keyseq)
+        sql-params (into [update-query]
+                         (map ctx->entry ctxs))]
+    (jdbc/db-do-prepared db sql-params {:multi? true})))
 
 (defn query [db name id ctxs]
   (let [id-part (string/join ", " (map db-column-name id))
