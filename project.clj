@@ -1,9 +1,9 @@
-(defproject skyscraper "0.3.1-SNAPSHOT"
+(defproject skyscraper "0.3.2-aequitable-SNAPSHOT"
   :description "Structural scraping for the rest of us."
   :license {:name "MIT", :url "https://github.com/nathell/skyscraper/blob/master/README.md#license"}
-  :scm {:name "git", :url "https://github.com/nathell/skyscraper"}
+  :scm {:name "git", :url "https://github.com/aequitable/skyscraper"}
   :codox {:metadata {:doc/format :markdown}}
-  :url "https://github.com/nathell/skyscraper"
+  :url "https://github.com/aequitable/skyscraper"
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/core.async "1.0.567"]
                  [org.clojure/core.incubator "0.1.4"]
